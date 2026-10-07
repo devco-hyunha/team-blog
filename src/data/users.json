@@ -1,0 +1,32 @@
+[
+  {
+    "id": "1",
+    "name": "지현하",
+    "email": "jihyunha@domain.com",
+    "password": "1234"
+  },
+  {
+    "id": "2",
+    "name": "박아름",
+    "email": "parkarm@domain.com",
+    "password": "1234"
+  },
+  {
+    "id": "3",
+    "name": "최찬웅",
+    "email": "choichanwoong@domain.com",
+    "password": "1234"
+  },
+  {
+    "id": "4",
+    "name": "임유빈",
+    "email": "imyubin@domain.com",
+    "password": "1234"
+  },
+  {
+    "id": "5",
+    "name": "박소영",
+    "email": "parksoyoung@domain.com",
+    "password": "1234"
+  }
+]
