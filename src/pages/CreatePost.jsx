@@ -1,7 +1,7 @@
 
 import useAuth from '../hooks/useAuth'
 
-const CreatePost = () => {
+const CreatePostPage = () => {
   const { user } = useAuth()
 
 
@@ -12,4 +12,4 @@ const CreatePost = () => {
   )
 }
 
-export default CreatePost
+export default CreatePostPage

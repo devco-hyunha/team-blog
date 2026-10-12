@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom'
 
-const NotFound = () => {
+const NotFoundPage = () => {
   return (
     <section className="space-y-4">
       <h1 className="text-3xl font-bold">404</h1>
@@ -12,4 +12,4 @@ const NotFound = () => {
   )
 }
 
-export default NotFound
+export default NotFoundPage

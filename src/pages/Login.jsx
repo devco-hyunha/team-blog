@@ -1,7 +1,7 @@
 
 import useAuth from '../hooks/useAuth'
 
-const Login = () => {
+const LoginPage = () => {
   const { login } = useAuth()
 
   /**
@@ -16,4 +16,4 @@ const Login = () => {
   )
 }
 
-export default Login
+export default LoginPage

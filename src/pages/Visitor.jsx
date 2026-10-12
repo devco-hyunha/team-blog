@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import useAuth from '../hooks/useAuth'
 
-const Visitor = () => {
+const VisitorPage = () => {
   const { user } = useAuth()
   return (
     <section className="mx-auto max-w-2xl space-y-4">
@@ -10,4 +10,4 @@ const Visitor = () => {
   )
 }
 
-export default Visitor
+export default VisitorPage
