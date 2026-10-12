@@ -12,6 +12,8 @@ const Visitor = () => {
 
     useEffect(()=>{
          const posts=readCollection(KEYS.visitors) || []
+
+         console.log(posts)
          setPost(posts)
          setCurrentUser(user)
 
@@ -22,14 +24,19 @@ const Visitor = () => {
 
     const addContent=()=>{
         const newContent={id: createId(), content:content, writeid:currentUser.id}
-        setPost([...post, newContent])
-        writeCollection(KEYS.visitors)
+
+        const newPost = [...post, newContent]; 
+        setPost(newPost);
+        writeCollection(KEYS.visitors, newPost);
+        setContent('')
+        alert('방명록이 등록되었습니다.')
     }
     
     const delv=(id)=>{
         const lists=post.filter((posts)=>posts.id !== id)
         setPost(lists)
         writeCollection(KEYS.visitors, lists)
+        alert('방명록이 삭제되었습니다.')
 
     }
 
