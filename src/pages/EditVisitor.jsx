@@ -1,4 +1,4 @@
-const EditVisitor = () => {
+const EditVisitorPage = () => {
 
   return (
     <section>
@@ -7,4 +7,4 @@ const EditVisitor = () => {
   )
 }
 
-export default EditVisitor
+export default EditVisitorPage

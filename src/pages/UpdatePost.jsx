@@ -1,7 +1,7 @@
 import { useParams } from 'react-router-dom'
 import useAuth from '../hooks/useAuth'
 
-const UpdatePost = () => {
+const UpdatePostPage = () => {
   const { id } = useParams()
   const { user } = useAuth()
 
@@ -12,4 +12,4 @@ const UpdatePost = () => {
   )
 }
 
-export default UpdatePost
+export default UpdatePostPage

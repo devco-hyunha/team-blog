@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom'
 
-const Home = () => {
+const HomePage = () => {
   return (
     <section className="space-y-4">
       <div className="flex items-center justify-between">
@@ -16,4 +16,4 @@ const Home = () => {
   )
 }
 
-export default Home
+export default HomePage
