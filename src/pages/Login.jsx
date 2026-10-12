@@ -3,7 +3,7 @@ import useAuth from '../hooks/useAuth'
 
 const LoginPage = () => {
   const { login } = useAuth()
-
+  login('parksoyoung@domain.com', '1234', true)
   /**
    * login(email, password, persist)
    * persist: true → localStorage(영구), false → sessionStorage(탭 종료 시 만료)

@@ -1,32 +1,36 @@
-import { createId, findUser, KEYS, readCollection } from '@/lib/storage'
+import useAuth from '@/hooks/useAuth'
+import { createId, findUser, KEYS, readCollection, writeCollection } from '@/lib/storage'
 import React, { Fragment, useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 
 const Visitor = () => {
+    const { isAuthenticated, user } = useAuth()
     const [content,setContent] = useState('') //방명록내용
     const [currentUser,setCurrentUser] = useState(null) //로그인한 사용자 기본값
     const [post,setPost]=useState([]) //방명록 글목록
 
 
-
     useEffect(()=>{
-         const post=readCollection(KEYS.visitors)
-         setPost(post)
-         const loginUser=findUser(user)
-         setCurrentUser(loginUser)
+         const posts=readCollection(KEYS.visitors) || []
+         setPost(posts)
+         setCurrentUser(user)
 
-    },[])
+    },[user])
     
 
    
 
     const addContent=()=>{
-        const newContent={id: createId(), content:content, writeId:currentUser}
-        setPost(post.push(newContent))
+        const newContent={id: createId(), content:content, writeid:currentUser.id}
+        setPost([...post, newContent])
+        writeCollection(KEYS.visitors)
     }
     
     const delv=(id)=>{
-        const lists=post.filter((post)=>post.id !== id)
+        const lists=post.filter((posts)=>posts.id !== id)
+        setPost(lists)
+        writeCollection(KEYS.visitors, lists)
+
     }
 
 
@@ -38,14 +42,14 @@ const Visitor = () => {
             <button onClick={addContent}>방명록 남기기</button>
 
             <div>
-                {post.map((post)=>(
-                   <Fragment key={post.id}>
-                        <div> {post.content} </div>
-                        <div>{post.writeId} </div>
-                        {currentUser && content.writeId === currentUser.userId && (
+                {post.map((lists)=>(
+                   <Fragment key={lists.id}>
+                        <div> {lists.content} </div>
+                        <div>{lists.writeId} </div>
+                        {currentUser && lists.writeId === currentUser.Id && (
                             <>
-                                <Link to={`/visitor/edit/${post.id}`}> 수정 </Link>
-                                <button onClick={()=>delv(id)}>삭제</button>
+                                <Link to={`/visitor/edit/${lists.id}`}> 수정 </Link>
+                                <button onClick={()=>delv(lists.id)}>삭제</button>
                             </>
                         )}
                    </Fragment> 
@@ -54,8 +58,7 @@ const Visitor = () => {
             </div>
             <div>
             
-            </div>
-        
+            </div> 
 
 
     </div>
