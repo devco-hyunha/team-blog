@@ -42,15 +42,16 @@ const PostDetail = () => {
     )
   }
 
-  // 현재 로그인한 사용자가 글쓴이인지 확인 (post.userId와 currentUser.id 비교)
-  const isOwner = currentUser && post.userId === currentUser.id
+  // 현재 로그인한 사용자가 글쓴이인지 확인
+  const isOwner = !!(post && currentUser && post.authorId === currentUser.id);
 
+  
   return (
     <article className="mx-auto max-w-2xl space-y-6 rounded-lg border border-slate-200 bg-white p-8 shadow-sm">
       <div className="space-y-2 border-b border-slate-100 pb-4">
         <h1 className="text-3xl font-bold text-slate-900">{post.title}</h1>
         <div className="flex items-center justify-between text-sm text-slate-500">
-          <span>작성자: {author ? author.name : '알 수 없음'}</span>
+          <span>작성자: {post.authorName}</span>
           <span>{formatDate(post.createdAt)}</span>
         </div>
       </div>
