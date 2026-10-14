@@ -62,7 +62,7 @@ const HomePage = () => {
                     {post.content}
                   </p>
                   <div className="flex items-center justify-between text-xs text-slate-400 pt-2">
-                    <span>작성자: {author ? author.name : '알 수 없음'}</span>
+                    <span>작성자: {post.authorName}</span>
                     <span>{formatDate(post.createdAt)}</span>
                   </div>
                 </div>
