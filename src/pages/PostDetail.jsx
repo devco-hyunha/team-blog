@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { useParams, useNavigate, Link } from 'react-router-dom'
-import { KEYS, readCollection, writeCollection, findUser, formatDate } from '../lib/storage'
+import { KEYS, readCollection, writeCollection, formatDate } from '../lib/storage'
 import useAuth from '../hooks/useAuth'
 
 const PostDetail = () => {
@@ -9,7 +9,6 @@ const PostDetail = () => {
   const { user: currentUser } = useAuth()
 
   const [post, setPost] = useState(null)
-  const [author, setAuthor] = useState(null)
 
   useEffect(() => {
     const posts = readCollection(KEYS.posts)
@@ -17,7 +16,6 @@ const PostDetail = () => {
     
     if (foundPost) {
       setPost(foundPost)
-      setAuthor(findUser(foundPost.userId))
     }
   }, [id])
 

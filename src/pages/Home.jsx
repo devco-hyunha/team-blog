@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
-import { KEYS, readCollection, findUser, formatDate } from '../lib/storage'
+import { KEYS, readCollection, formatDate } from '../lib/storage'
 
 const HomePage = () => {
   const [posts, setPosts] = useState([])
@@ -42,7 +42,6 @@ const HomePage = () => {
       ) : (
         <div className="space-y-3">
           {posts.slice(0, visibleCount).map((post) => {
-            const author = findUser(post.userId)
 
             return (
               <article
