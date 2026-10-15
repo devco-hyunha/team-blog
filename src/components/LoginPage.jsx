@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import useAuth from '../hooks/useAuth';
+import defaultUsers from '../data/users.json';
 
 const LoginPage = () => {
   const { login } = useAuth();
@@ -14,10 +15,6 @@ const LoginPage = () => {
   useEffect(() => {
     const existingUsers = JSON.parse(localStorage.getItem('users'));
     if (!existingUsers || existingUsers.length === 0) {
-      const defaultUsers = [
-        { id: 'admin', password: '1234', name: '관리자' },
-        { id: 'user1', password: '1234', name: '홍길동' },
-      ];
       localStorage.setItem('users', JSON.stringify(defaultUsers));
     }
   }, []);
@@ -37,10 +34,8 @@ const LoginPage = () => {
     // 같지 않으면 alert 출력
     if (!foundUser) {
       alert('아이디 또는 비밀번호가 올바르지 않습니다.');
-    } else { // 같으면 홈 화면으로 이동
-      /**
-       * persist: false -> sessionStorage 저장 (탭/브라우저 종료 시 자동 로그아웃)
-       */
+    } else {
+      // 같으면 홈 화면으로 이동
       login(userId, password, false);
       navigate('/');
     }
