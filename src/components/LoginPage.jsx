@@ -4,7 +4,7 @@ import useAuth from '../hooks/useAuth';
 import defaultUsers from '../data/users.json';
 
 const LoginPage = () => {
-  const { login } = useAuth();
+  const { login, isAuthenticated } = useAuth();
   const navigate = useNavigate();
 
   // 로그인 상태 관리
@@ -28,7 +28,7 @@ const LoginPage = () => {
 
     // users를 find 사용해서 입력한 id,비번이 저장되어있는 id, password와 같은지 확인
     const foundUser = users.find(
-      (user) => user.id === userId && user.password === password
+      (user) => user.email === userId && user.password === password
     );
 
     // 같지 않으면 alert 출력
@@ -63,6 +63,7 @@ const LoginPage = () => {
             <input
               type="text"
               placeholder="아이디를 입력하세요"
+              autoComplete="off"
               value={userId}
               onChange={(e) => setUserId(e.target.value)}
               required
@@ -77,6 +78,7 @@ const LoginPage = () => {
             <input
               type="password"
               placeholder="비밀번호를 입력하세요"
+              autoComplete="off"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required

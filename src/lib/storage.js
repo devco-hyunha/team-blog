@@ -77,11 +77,37 @@ export const clearSession = () => {
  * UUID를 생성하는 함수
  * @description
  * - crypto.randomUUID()를 사용하여 고유한 식별자를 생성
+ * - randomUUID는 보안 컨텍스트(HTTPS 또는 localhost)에서만 제공되므로,
+ *   내부 IP(http://192.168.x.x 등)로 접속할 때는 getRandomValues 기반 폴백 사용
  * - 이 식별자는 사용자 ID, 게시물 ID 등 다양한 용도로 사용 가능
- * @returns {string} - 생성된 UUID
+ * @returns {string} - 생성된 UUID (v4 형식)
  */
 export const createId = () => {
-  return crypto.randomUUID()
+  // 보안 컨텍스트에서는 표준 API 사용
+  if (typeof crypto !== 'undefined' && typeof crypto.randomUUID === 'function') {
+    return crypto.randomUUID()
+  }
+
+  // 폴백: 16바이트 랜덤 값으로 UUID v4 생성
+  const bytes = new Uint8Array(16)
+  if (typeof crypto !== 'undefined' && typeof crypto.getRandomValues === 'function') {
+    crypto.getRandomValues(bytes)
+  } else {
+    for (let i = 0; i < 16; i += 1) bytes[i] = Math.floor(Math.random() * 256)
+  }
+
+  // v4 비트 규칙 적용
+  bytes[6] = (bytes[6] & 0x0f) | 0x40
+  bytes[8] = (bytes[8] & 0x3f) | 0x80
+
+  const hex = Array.from(bytes, (b) => b.toString(16).padStart(2, '0')).join('')
+  return [
+    hex.slice(0, 8),
+    hex.slice(8, 12),
+    hex.slice(12, 16),
+    hex.slice(16, 20),
+    hex.slice(20),
+  ].join('-')
 }
 
 /**
