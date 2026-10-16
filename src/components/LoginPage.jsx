@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import useAuth from '../hooks/useAuth';
-import defaultUsers from '../data/users.json';
+import { validateUser } from '@/lib/storage';
 
 const LoginPage = () => {
   const { login, isAuthenticated } = useAuth();
@@ -11,28 +11,12 @@ const LoginPage = () => {
   const [userId, setUserId] = useState('');
   const [password, setPassword] = useState('');
 
-  // 컴포넌트가 처음 실행될 때 로컬스토리지에 기본 사용자 정보가 없으면 세팅
-  useEffect(() => {
-    const existingUsers = JSON.parse(localStorage.getItem('users'));
-    if (!existingUsers || existingUsers.length === 0) {
-      localStorage.setItem('users', JSON.stringify(defaultUsers));
-    }
-  }, []);
-
   // 로그인 핸들러
   const handleLogin = (e) => {
     e.preventDefault();
 
-    // 로컬스토리지에 저장되어있는 users 꺼내옴
-    const users = JSON.parse(localStorage.getItem('users')) || [];
-
-    // users를 find 사용해서 입력한 id,비번이 저장되어있는 id, password와 같은지 확인
-    const foundUser = users.find(
-      (user) => user.email === userId && user.password === password
-    );
-
     // 같지 않으면 alert 출력
-    if (!foundUser) {
+    if (!validateUser(userId, password)) {
       alert('아이디 또는 비밀번호가 올바르지 않습니다.');
     } else {
       // 같으면 홈 화면으로 이동

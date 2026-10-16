@@ -130,6 +130,11 @@ export const findUser = (userId) => {
   return readCollection(KEYS.users).find((u) => u.id === userId) ?? null
 }
 
+export const validateUser = (userEmail, password) => {
+  return readCollection(KEYS.users).find((u) => u.email === userEmail && u.password === password) ?? null
+}
+
+
 /**
  * ISO 날짜 문자열을 한국어 형식으로 변환하는 함수
  * @param {string} iso - ISO 형식의 날짜 문자열
